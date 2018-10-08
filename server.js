@@ -10,12 +10,15 @@ var cheerio = require("cheerio");
 // Require all models
 var db = require("./models");
 
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 // Initialize Express
 var app = express();
 
-var MONGODB_URI = process.env.MONGODB_URI || 'mongodb:://localhost:27017/mongoHeadlines'
+var uristring =
+  process.env.MONGOLAB_URI ||
+  process.env.MONGOHQ_URL ||
+  'mongodb://localhost/mongoHeadlines';
 
 // Configure middleware
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
@@ -29,7 +32,13 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+mongoose.connect(uristring, { useNewUrlParser: true }, function(err, res) {
+  if (err) {
+    console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+  } else {
+    console.log ('Succeeded connected to: ' + uristring);
+  }
+});
 
 // Routes
 
@@ -41,7 +50,7 @@ app.get("/scrape", function(req, res) {
     var $ = cheerio.load(response.data);
 
     // Now, we grab every h2 within an article tag, and do the following:
-    $("article h2").each(function(i, element) {
+    $("article.css-180b3ld").each(function(i, element) {
       // Save an empty result object
       var result = {};
 
@@ -55,9 +64,11 @@ app.get("/scrape", function(req, res) {
 
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
+        .populate('notes')
         .then(function(dbArticle) {
           // View the added result in the console
           console.log(dbArticle);
+          res.end()
         })
         .catch(function(err) {
           // If an error occurred, send it to the client
@@ -68,6 +79,20 @@ app.get("/scrape", function(req, res) {
     // If we were able to successfully scrape and save an Article, send a message to the client
     res.send("Scrape Complete");
   });
+});
+
+// Route for getting all Articles from the db
+app.get("/articles", function(req, res) {
+  // Grab every document in the Articles collection
+  db.Article.find({})
+    .then(function(dbArticle) {
+      // If we were able to successfully find Articles, send them back to the client
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
 });
 
 // Start the server

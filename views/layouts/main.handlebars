@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.0.0/materia/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Cormorant+SC" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+		<title>NYTimes News Scraper</title>
+		<script src="https://code.jquery.com/jquery.js"></script>
+		<script src="/public/assets/js/app.js"></script>
+	</head>
+	<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="/">Mongo Scraper</a>
+  <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/saved">Saved Articles</a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-danger scrape-new">SCRAPE NEW ARTICLES!</a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-danger clear">CLEAR ARTICLES!</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="jumbotron text-center">
+  <div class="overlay">
+  </div>
+  <div class="background-image">
+  </div>
+  <div class="caption">
+    <h1>Mongo Scraper</h1>
+    <p>New York Times Edition</p>
+  </div>
+</div>
+		{{{ body }}}
+	</body>
+  <body>
+  
+{{!-- <div class="container-fluid article-container">
+  <div data-_id="5bbafb427cac970014ada700" class="card">
+    <div class="card-header">
+      <h3>
+        <a class="article-link" target="_blank" rel="noopener noreferrer" href="https://www.nytimes.com/2018/10/05/arts/design/leonardo-faces-teylers-museum.html">Why Did Leonardo da Vinci Draw These Weird Faces?</a>
+        <a class="btn btn-success save">Save Article</a>
+      </h3>
+    </div>
+    <div class="card-body">Some scholars see doodles. Others see an artist trying to understand the range of emotion. The faces are the focus of a new exhibit in the Netherlands.</div>
+  </div>
+    <div data-_id="5bbafb427cac970014ada6ff" class="card">
+    <div class="card-header">
+      <h3>
+        <a class="article-link" target="_blank" rel="noopener noreferrer" href="https://www.nytimes.com/2018/10/07/nyregion/a-12th-century-relic-meets-a-21st-century-technology.html">A 12th Century Relic Meets 21st Century Technology</a>
+        <a class="btn btn-success save">Save Article</a>
+      </h3>
+    </div>
+    <div class="card-body">Curators enlisted a drone to survey damage to the Fuentidueña apse at the Metropolitan Museum of Art’s Cloisters in Northern Manhattan.</div>
+  </div>
+    <div data-_id="5bbafb427cac970014ada6fe" class="card">
+    <div class="card-header">
+      <h3>
+        <a class="article-link" target="_blank" rel="noopener noreferrer" href="https://www.nytimes.com/2018/10/07/opinion/midterms-trump-republicans-supreme-court.html">Get Angry, and Get Involved</a>
+        <a class="btn btn-success save">Save Article</a>
+      </h3>
+    </div>
+    <div class="card-body">The midterm elections are the smart way to make your influence felt.</div>
+  </div>
+    <div data-_id="5bbafb427cac970014ada6fd" class="card">
+    <div class="card-header">
+      <h3>
+        <a class="article-link" target="_blank" rel="noopener noreferrer" href="https://www.nytimes.com/2018/10/07/opinion/truth-mass-lynching.html">A Last Hope for Truth in a Mass Lynching</a>
+        <a class="btn btn-success save">Save Article</a>
+      </h3>
+    </div>
+    <div class="card-body">A federal appeals court should release records of a grand jury that held no one responsible for a 1946 Georgia horror.</div>
+  </div>
+    <div data-_id="5bbafb427cac970014ada6fc" class="card">
+    <div class="card-header">
+      <h3>
+        <a class="article-link" target="_blank" rel="noopener noreferrer" href="https://www.nytimes.com/2018/10/07/nyregion/worlds-oldest-barber-anthony-mancinelli.html">The World’s Oldest Barber Is 107 and Still Cutting Hair Full Time</a>
+        <a class="btn btn-success save">Save Article</a>
+      </h3>
+    </div>
+    <div class="card-body">Anthony Mancinelli started working in barbershops when he was 11, and he’s still wielding scissors in upstate New York. He says work is key to his longevity.</div>
+  </div>
+    <div data-_id="5bbafb427cac970014ada6fb" class="card">
+    <div class="card-header">
+      <h3>
+        <a class="article-link" target="_blank" rel="noopener noreferrer" href="https://www.nytimes.com/2018/10/07/world/asia/china-interpol-men-hongwei.html">Interpol President Is Detained by China and Has Quit His Post</a>
+        <a class="btn btn-success save">Save Article</a>
+      </h3>
+    </div>
+    <div class="card-body">The Chinese Communist Party announced that the missing president of Interpol was under investigation on “suspicion of violating the law.”</div>
+  </div>
+    <div data-_id="5bbafb427cac970014ada6fa" class="card">
+    <div class="card-header">
+      <h3>
+        <a class="article-link" target="_blank" rel="noopener noreferrer" href="https://www.nytimes.com/interactive/2018/10/07/climate/ipcc-report-half-degree.html">Why Half a Degree of Global Warming Is a Big Deal</a>
+        <a class="btn btn-success save">Save Article</a>
+      </h3>
+    </div>
+    <div class="card-body">Even a half-degree of temperature change could expose tens of millions more people worldwide to life-threatening heat waves, water shortages and coastal flooding.</div>
+  </div>
+    <div data-_id="5bbafb427cac970014ada6f9" class="card">
+    <div class="card-header">
+      <h3>
+        <a class="article-link" target="_blank" rel="noopener noreferrer" href="https://www.nytimes.com/2018/10/07/us/politics/wall-street-election-donations.html">Wall Street Is Booming, but Many in Finance Are Embracing Democrats</a>
+        <a class="btn btn-success save">Save Article</a>
+      </h3>
+    </div>
+    <div class="card-body">The financial community is on pace to give more money to Democratic congressional candidates and incumbents than their Republican counterparts.</div>
+  </div>
+    <div data-_id="5bbafb427cac970014ada6f8" class="card">
+    <div class="card-header">
+      <h3>
+        <a class="article-link" target="_blank" rel="noopener noreferrer" href="https://www.nytimes.comhttps://www.nytimes.com/tips">Got a confidential news tip?</a>
+        <a class="btn btn-success save">Save Article</a>
+      </h3>
+    </div>
+    <div class="card-body">Do you have the next big story? Share it with our journalists.</div>
+  </div>
+    <div data-_id="5bbafb427cac970014ada6f7" class="card">
+    <div class="card-header">
+      <h3>
+        <a class="article-link" target="_blank" rel="noopener noreferrer" href="https://www.nytimes.com/2018/10/05/dining/reward-your-future-self.html">Sign Up for ‘Weeknight Recipes’</a>
+        <a class="btn btn-success save">Save Article</a>
+      </h3>
+    </div>
+    <div class="card-body">Face down a busy week by cooking a big batch of chili.</div>
+  </div>
+   </div> --}}
+
+<footer class="footer">
+  <div class="container">
+    <p>New York Times Mongo Scraper</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+<script src="/assets/javascript/index.js"></script>
+
+
+
+
+</body>
+</html>
