@@ -43,16 +43,21 @@ $(document).on('click', '.scrape-new', function(){
   })
 })
 
-// $(document).on('click', '.clear', function(req, res){
-//   $.ajax({
-//     method: "GET",
-//     url:'/scrape'
-//   })
-//   .then(function(data){
-//     window.location.reload()
-//     console.log(data)
-//   })
-// })
+$(document).on('click', '.clear', function(req, res){
+  $.ajax({
+    method: "GET",
+    url:'/api/articles'
+  })
+  .then(function(){
+    $.ajax({
+      method: 'DELETE',
+      url: '/api/clear'
+    }).then(function(data){
+      window.location.reload()
+      console.log(data)
+    })    
+  })
+})
 
 // // When you click the savenote button
 // $(document).on("click", "#savenote", function() {

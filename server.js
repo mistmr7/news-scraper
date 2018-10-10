@@ -185,7 +185,11 @@ app.get('/saved', function(req, res) {
     });
 })
 
-app.get('/api/articles/')
+app.delete('/api/clear', function(req, res) {
+  db.Article.deleteMany({ saved: false }, function(err) {
+    if (err) throw err
+  })
+})
 
 app.get('/', function(req, res) {
   db.Article.find({})

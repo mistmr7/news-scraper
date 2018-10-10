@@ -17,3 +17,7 @@
 .card {
   margin: 10px;
 }
+
+a .btn-danger {
+  padding: 5px;
+}
