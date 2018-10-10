@@ -18,6 +18,26 @@
   margin: 10px;
 }
 
-a .btn-danger {
-  padding: 5px;
+.scrape-new {
+  margin-right: 10px;
+}
+
+.caption {
+  color: royalblue;
+}
+
+.caption h1 {
+  font-size: 60px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.caption p {
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.jumbotron {
+  background-image: url("https://cdn.pixabay.com/photo/2014/08/07/15/20/newspaper-412452_960_720.jpg");
+  background-repeat: no-repeat;
+  background-position-x: 50%;
 }

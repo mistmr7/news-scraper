@@ -8,8 +8,10 @@ $(document).on("click", ".save-button", function() {
     method: "GET"
   })
   .then(function() {
-    $.post(`/api/articles/saved/${thisId}`, function(data) {
-      console.log(data)
+    $.post(`/api/articles/saved/${thisId}`, function(err) {
+      if (err) {
+        throw new Error('Failed on posting to the api/articles/saved/:id')
+      }
     })
   })    
 });
@@ -19,7 +21,7 @@ $(document).on("click", ".delete-button", function() {
   console.log(thisId)
   // Now make an ajax call for the Article
   $.ajax({
-    url: `/api/articles/`,
+    url: `/api/articles`,
     method: "GET"
   })
   .then(function() {
@@ -27,9 +29,7 @@ $(document).on("click", ".delete-button", function() {
       console.log(data)
       window.location.reload()
     })
-  })
-  
-    // With that done, add the note information to the page    
+  })   
 });
 
 $(document).on('click', '.scrape-new', function(){
@@ -45,45 +45,14 @@ $(document).on('click', '.scrape-new', function(){
 
 $(document).on('click', '.clear', function(req, res){
   $.ajax({
-    method: "GET",
-    url:'/api/articles'
-  })
-  .then(function(){
-    $.ajax({
-      method: 'DELETE',
-      url: '/api/clear'
-    }).then(function(data){
+    method: 'DELETE',
+    url: '/api/clear'
+  }).then(function(err) {
+    if (err) {
+      throw new Error('Error occurred deleting from the api/articles')
+    } else {
       window.location.reload()
-      console.log(data)
-    })    
+    }
   })
 })
 
-// // When you click the savenote button
-// $(document).on("click", "#savenote", function() {
-//   // Grab the id associated with the article from the submit button
-//   var thisId = $(this).attr("data-id");
-
-//   // Run a POST request to change the note, using what's entered in the inputs
-//   $.ajax({
-//     method: "POST",
-//     url: "/articles/" + thisId,
-//     data: {
-//       // Value taken from title input
-//       title: $("#titleinput").val(),
-//       // Value taken from note textarea
-//       body: $("#bodyinput").val()
-//     }
-//   })
-//     // With that done
-//     .then(function(data) {
-//       // Log the response
-//       console.log(data);
-//       // Empty the notes section
-//       $("#notes").empty();
-//     });
-
-//   // Also, remove the values entered in the input and textarea for note entry
-//   $("#titleinput").val("");
-//   $("#bodyinput").val("");
-// });
