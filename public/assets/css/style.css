@@ -1,0 +1,19 @@
+.card-header {
+  background-color: blue;
+}
+
+.card-header a {
+  color: white;
+}
+
+.card-header a:hover {
+  color: yellow;
+}
+
+.card-footer {
+  background-color:lightgrey;
+}
+
+.card {
+  margin: 10px;
+}

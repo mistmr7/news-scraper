@@ -55,18 +55,15 @@ app.get("/scrape", function(req, res) {
       var result = {};
 
       // Add the text and href of every link, and save them as properties of the result object
-      result.title = $(this)
-        .children()
-        .text();
-      result.link = $(this)
-        .find("a")
-        .attr("href");
+      result.title = $(this).find('a').find('h2').text()
+      result.description = $(this).find('p').text()
+      result.link = 'https://www.nytimes.com/' + $(this).find("a").attr("href")
+      
+      console.log(result.link)
 
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
-        .populate('notes')
         .then(function(dbArticle) {
-          // View the added result in the console
           console.log(dbArticle);
           res.end()
         })
@@ -82,9 +79,10 @@ app.get("/scrape", function(req, res) {
 });
 
 // Route for getting all Articles from the db
-app.get("/articles", function(req, res) {
+app.get("/api/articles", function(req, res) {
   // Grab every document in the Articles collection
   db.Article.find({})
+    .populate('Note')
     .then(function(dbArticle) {
       // If we were able to successfully find Articles, send them back to the client
       res.json(dbArticle);
@@ -94,6 +92,117 @@ app.get("/articles", function(req, res) {
       res.json(err);
     });
 });
+
+app.post('/api/articles/saved/:id', function(req, res){
+  console.log(req.body)
+  let id = req.params.id
+
+  db.Article.findByIdAndUpdate({ _id:id }, {$set: {saved: true}}, {new: true})
+  .populate('Note')
+  .then(function(dbArticle) {
+    console.log(dbArticle)
+    res.end()
+  })
+  .catch(function(err) {
+    return res.json(err)
+  })
+})
+
+app.post('/api/articles/:id', function(req, res){
+  console.log(req.body)
+  let id = req.params.id
+
+  db.Article.findByIdAndUpdate({ _id:id }, {$set: {saved: false}}, {new: true})
+  .populate('Note')
+  .then(function(dbArticle) {
+    console.log(dbArticle)
+    res.end()
+  })
+  .catch(function(err) {
+    return res.json(err)
+  })
+})
+
+app.get('/api/articles/:id', function(req, res){
+  db.Article.findOne({ _id: req.params.id })
+    .populate('Note')
+    .then(function(dbArticle) {
+      console.log(dbArticle)
+      res.json(dbArticle)
+    })
+    .catch(function(err) {
+      
+    })
+})
+
+// Route for getting all Articles from the db
+app.get("/api/articles/saved/:id", function(req, res) {
+  // Grab every document in the Articles collection
+  db.Article.find({ 
+    _id: req.params.id,
+    saved: true
+  })
+    .populate('Note')
+    .then(function(dbArticle) {
+      // If we were able to successfully find Articles, send them back to the client
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
+
+// Route for getting all Articles from the db
+app.get("/api/articles/saved", function(req, res) {
+  // Grab every document in the Articles collection
+  db.Article.find({ saved: true })
+    .populate('Note')
+    .then(function(dbArticle) {
+      // If we were able to successfully find Articles, send them back to the client
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
+
+app.get('/saved', function(req, res) {
+  db.Article.find({ saved: true })
+  .populate('Note')
+    .then(function(dbArticle) {
+      // If we were able to successfully find Articles, send them back to the client
+      console.log(dbArticle)
+      var hbsObject = {
+        articles: dbArticle
+      }
+      res.render('saved', hbsObject);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+})
+
+app.get('/api/articles/')
+
+app.get('/', function(req, res) {
+  db.Article.find({})
+  .populate('Note')
+    .then(function(dbArticle) {
+      // If we were able to successfully find Articles, send them back to the client
+      console.log(dbArticle)
+      var hbsObject = {
+        articles: dbArticle
+      }
+      res.render('index', hbsObject);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+})
 
 // Start the server
 app.listen(PORT, function() {
