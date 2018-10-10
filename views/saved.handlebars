@@ -15,9 +15,14 @@
           <button class="delete-button btn-sm btn-danger" _id= {{_id}}>Delete Article</button>
         </div>
       </div>
+      <div class="container"  id="note-form" style="display:none">
+        <input type="text" name="new-note" id="note-input">
+        <button class='btn-sm btn-outline-primary' type="submit" id="submit-note" _id={{_id}}>Submit Note</button>
+      </div>
     {{/each}}
   </ul>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>

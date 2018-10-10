@@ -19,7 +19,7 @@ module.exports = function(app) {
   // Route for getting a specific article by its ID
   app.get('/api/articles/:id', function(req, res){
     db.Article.findOne({ _id: req.params.id })
-      .populate('Note')
+      .populate('note')
       .then(function(dbArticle) {
         console.log(dbArticle)
         res.json(dbArticle)
@@ -34,7 +34,6 @@ module.exports = function(app) {
   app.get("/api/articles/saved", function(req, res) {
   // Grab every document in the Articles collection where saved is true
     db.Article.find({ saved: true })
-    .populate('Note')
     .then(function(dbArticle) {
       console.log(dbArticle)
       // If we were able to successfully find Articles, send them back to the client
@@ -59,6 +58,20 @@ module.exports = function(app) {
     .catch(function(err) {
       return res.json(err)
     })
+  })
+
+  app.post('/api/articles/notes/:id', function(req, res){
+  
+    db.Note.create(req.body)
+    .then(function(dbNote) {
+      return db.Article.findOneAndUpdate({ _id:req.params.id }, { note: dbNote._id }, {new: true})
+    })
+    .then(function(dbArticle) {
+      res.json(dbArticle)
+    })
+    .catch(function(err) {
+      return res.json(err)
+    }) 
   })
 
   // Post route to post articles to save based on their ID

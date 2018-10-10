@@ -42,8 +42,9 @@ mongoose.connect(uristring, { useNewUrlParser: true }, function(err, res) {
 
 // Routes
 require('./routes/apiRoutes.js')(app)
-require('./routes/htmlRoutes.js')(app)
 
+
+//FIXME: error on scraping
 // A GET route for scraping the NYTimes website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with axios

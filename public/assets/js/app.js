@@ -43,6 +43,7 @@ $(document).on('click', '.scrape-new', function(){
   })
 })
 
+//TODO: window reload not working
 $(document).on('click', '.clear', function(req, res){
   $.ajax({
     method: 'DELETE',
@@ -55,4 +56,27 @@ $(document).on('click', '.clear', function(req, res){
     }
   })
 })
+
+$(document).on('click', '.note-button', function(){
+  $('#note-form').show()
+})
+
+$(document).on('click', '#submit-note', function(e){
+  let thisId = $(this).attr('_id')
+  let noteInput = $('#note-input').val()
+  console.log(thisId)
+  console.log(noteInput)
+  $.ajax({
+    method: 'POST',
+    url:`/api/articles/notes/${thisId}`,
+    data: {
+      body: noteInput
+    }
+  })
+  .then(function(data) {
+    console.log(data)
+    $('#note-form').val("").hide()
+  })
+})
+
 
