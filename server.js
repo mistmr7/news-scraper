@@ -68,11 +68,10 @@ app.get("/scrape", function(req, res) {
       db.Article.create(result)
         .then(function(dbArticle) {
           console.log(dbArticle);
-          res.end()
         })
         .catch(function(err) {
           // If an error occurred, send it to the client
-          return res.json(err);
+          return res.writeContinue(err);
         });
     });
 
