@@ -83,7 +83,6 @@ app.get("/scrape", function(req, res) {
 
 app.get('/saved', function(req, res) {
   db.Article.find({ saved: true })
-  .populate('Note')
   .then(function(dbArticle) {
     // If we were able to successfully find Articles, send them back to the client
     console.log(dbArticle)
@@ -100,7 +99,6 @@ app.get('/saved', function(req, res) {
 
 app.get('/', function(req, res) {
   db.Article.find({})
-  .populate('Note')
     .then(function(dbArticle) {
       // If we were able to successfully find Articles, send them back to the client
       console.log(dbArticle)

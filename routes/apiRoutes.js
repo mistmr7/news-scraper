@@ -50,7 +50,6 @@ module.exports = function(app) {
     let id = req.params.id
   
     db.Article.findByIdAndUpdate({ _id:id }, {$set: {saved: false}}, {new: true})
-    .populate('Note')
     .then(function(dbArticle) {
       console.log(dbArticle)
       res.end()
